@@ -25,6 +25,7 @@ public class UserLoginTest {
         String landingPageExpectedTitle="Online Shopping site in India: Shop Online for Mobiles, Books, Watches, Shoes and More - Amazon.in";
         String landingPageTitleNegativeValidation="Amazon.in";
         String signInPageTitlePositiveValidation="Amazon Sign In";
+        String userPageTitleNegativeValidation="Authentication required";
 
         String landingPageActualTitle=chromeDriver.getTitle();
         System.out.println(landingPageActualTitle);
@@ -33,6 +34,7 @@ public class UserLoginTest {
                 throw new PageNotDisplayedException("Landed in user verification page as bot operation detected by web app");
             } catch (PageNotDisplayedException e) {
                 System.out.println(e.getMessage()+". Exiting program...!");
+                chromeDriver.quit();
                 System.exit(1);
             }
         }
@@ -49,7 +51,30 @@ public class UserLoginTest {
         //When user clicks on Sign-link
         signInLink.click();
         //Then Sign In page should be displayed
-        System.out.println(chromeDriver.getTitle());
+        String signInPageActualTitle=chromeDriver.getTitle();
+        System.out.println(signInPageActualTitle);
+        Thread.sleep(2000);
+
+        WebElement emailTextBox=chromeDriver.findElement(By.xpath("//div/input[@name='email']"));
+        emailTextBox.sendKeys("..enter user email here...");
+        WebElement submitButton=chromeDriver.findElement(By.xpath("//span/input[@type='submit']"));
+        submitButton.click();
+        WebElement passwordTextBox=chromeDriver.findElement(By.xpath("//div/input[@name='password']"));
+        passwordTextBox.sendKeys("..enter password");
+        WebElement signInButton=chromeDriver.findElement(By.xpath("//span/input[@id='signInSubmit']"));
+        signInButton.click();
+        String homePageActualTitle=chromeDriver.getTitle();
+        System.out.println(homePageActualTitle);
+        if(homePageActualTitle.contentEquals(userPageTitleNegativeValidation)) {
+            try {
+                throw new PageNotDisplayedException("Bot operation detected by web app");
+            } catch(PageNotDisplayedException e) {
+                System.out.println(e.getMessage()+". Exiting ");
+                chromeDriver.quit(); System.exit(1);
+            }
+        }
+
+        Thread.sleep(2000);
 
         chromeDriver.quit();
     }
