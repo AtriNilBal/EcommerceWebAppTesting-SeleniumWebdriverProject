@@ -21,7 +21,22 @@ public class UserLoginTest {
         options.addArguments("--disable-blink-features=AutomationControlled");
         chromeDriver.get(baseUrl);
         chromeDriver.manage().window().maximize();
-        System.out.println(chromeDriver.getTitle());
+
+        String landingPageExpectedTitle="Online Shopping site in India: Shop Online for Mobiles, Books, Watches, Shoes and More - Amazon.in";
+        String landingPageTitleNegativeValidation="Amazon.in";
+        String signInPageTitlePositiveValidation="Amazon Sign In";
+
+        String landingPageActualTitle=chromeDriver.getTitle();
+        System.out.println(landingPageActualTitle);
+        if(landingPageActualTitle.contentEquals(landingPageTitleNegativeValidation)) {
+            try {
+                throw new PageNotDisplayedException("Landed in user verification page as bot operation detected by web app");
+            } catch (PageNotDisplayedException e) {
+                System.out.println(e.getMessage()+". Exiting program...!");
+                System.exit(1);
+            }
+        }
+        Thread.sleep(2000);
 
         //And user hovers over Accounts & links
         WebElement signInAccountsAndLink=chromeDriver.findElement(By.xpath("//span[text()='Hello, sign in']"));
