@@ -7,33 +7,31 @@ import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.interactions.Actions;
 import page.CustomExceptions.PageNotDisplayedException;
+import page.constants.ExpectedValues;
 
 public class UserLoginTest {
-    private static WebDriver driver;
+    private static WebDriver chromeDriver;
     private static String baseUrl;
 
     public static void main(String[] args) throws InterruptedException {
 
+        ExpectedValues expectedValues=new ExpectedValues();
+
         //Given user is on landing page
         baseUrl="https://www.amazon.in";
-        ChromeDriver chromeDriver=new ChromeDriver();
+        //ChromeDriver chromeDriver=new ChromeDriver();
         ChromeOptions options=new ChromeOptions();
         options.addArguments("--disable-blink-features=AutomationControlled");
         options.addArguments("useAutomationExtension", "False");
+        chromeDriver=new ChromeDriver(options);
         chromeDriver.get(baseUrl);
         chromeDriver.manage().window().maximize();
 
-        String landingPageExpectedTitle="Online Shopping site in India: Shop Online for Mobiles, Books, Watches, Shoes and More - Amazon.in";
-        String landingPageTitleNegativeValidation="Amazon.in";
-        String signInPageTitlePositiveValidation="Amazon Sign In";
-        String userLandingPageTitleNegativeValidation="Authentication required";
-        String userLandingPageExpectedTitle=landingPageExpectedTitle;
-
         String landingPageActualTitle=chromeDriver.getTitle();
         System.out.println(landingPageActualTitle);
-        if(landingPageActualTitle.contentEquals(landingPageTitleNegativeValidation)) {
+        if(landingPageActualTitle.contentEquals(ExpectedValues.LANDING_PAGE_TITLE_NEGATIVE_VALIDATION)) {
             try {
-                throw new PageNotDisplayedException("Landed in user verification page as bot operation detected by web app");
+                throw new PageNotDisplayedException(ExpectedValues.PAGE_NOT_DISPLAYED_BOT_DETECTED_EXCEPTION_MESSAGE);
             } catch (PageNotDisplayedException e) {
                 System.out.println(e.getMessage()+". Exiting program...!");
                 chromeDriver.quit();
@@ -67,11 +65,11 @@ public class UserLoginTest {
         signInButton.click();
         String homePageActualTitle=chromeDriver.getTitle();
         System.out.println(homePageActualTitle);
-        if(homePageActualTitle.contentEquals(userLandingPageTitleNegativeValidation)) {
+        if(homePageActualTitle.contentEquals(ExpectedValues.USER_LANDING_PAGE_TITLE_NEGATIVE_VALIDATION)) {
             try {
-                throw new PageNotDisplayedException("Bot operation detected by web app");
+                throw new PageNotDisplayedException(ExpectedValues.PAGE_NOT_DISPLAYED_BOT_DETECTED_EXCEPTION_MESSAGE);
             } catch(PageNotDisplayedException e) {
-                System.out.println(e.getMessage()+". Exiting ");
+                System.out.println(e.getMessage()+". Exiting program...!");
                 chromeDriver.quit(); System.exit(1);
             }
         }
