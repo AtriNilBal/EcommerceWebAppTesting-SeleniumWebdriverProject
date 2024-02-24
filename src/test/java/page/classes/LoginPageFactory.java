@@ -1,10 +1,13 @@
 package page.classes;
 
+import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.support.FindBy;
+import org.openqa.selenium.support.PageFactory;
 
 public class LoginPageFactory {
-    public static WebElement element=null;
+    public WebDriver driver=null;
 
     @FindBy(xpath = "//div/input[@name='email']")
     private WebElement usernameTextBox;
@@ -32,5 +35,10 @@ public class LoginPageFactory {
 
     public void clickSignInButton() {
         signInButton.click();
+    }
+
+    public LoginPageFactory(WebDriver driver) {
+        this.driver=driver;
+        PageFactory.initElements(driver,this);
     }
 }
