@@ -8,12 +8,14 @@ import org.testng.annotations.Test;
 import page.classes.CommonMethods;
 import page.classes.LandingPageFactory;
 import page.classes.LoginPageFactory;
+import page.classes.UserLandingPageFactoryClass;
 import page.constants.ExpectedValues;
 
 public class UserLoginTestNgTestsOnEdge {
     private WebDriver webDriver;
     private LandingPageFactory landingPageFactory;
     private LoginPageFactory loginPageFactory;
+    private UserLandingPageFactoryClass userLandingPageFactoryClass;
 
     @BeforeClass
     private void setUp() {
@@ -21,6 +23,7 @@ public class UserLoginTestNgTestsOnEdge {
         webDriver.manage().window().maximize();
         landingPageFactory=new LandingPageFactory(webDriver);
         loginPageFactory=new LoginPageFactory(webDriver);
+        userLandingPageFactoryClass=new UserLandingPageFactoryClass(webDriver);
     }
 
     @Test
@@ -31,6 +34,7 @@ public class UserLoginTestNgTestsOnEdge {
         loginPageFactory.clickUserNameSubmitButton();
         loginPageFactory.userInputToPasswordTextBox(ExpectedValues.USER_LOGIN_PASSWORD);
         loginPageFactory.clickSignInButton();
+        userLandingPageFactoryClass.hoverOnUserSignInAccountsAndLinksAndClickSignOut();
     }
 
     @AfterClass

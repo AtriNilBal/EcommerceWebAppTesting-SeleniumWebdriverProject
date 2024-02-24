@@ -15,7 +15,7 @@ public class CommonMethods {
         ChromeOptions options=new ChromeOptions();
         options.addArguments("--disable-blink-features=AutomationControlled");
         options.addArguments("useAutomationExtension", "False");
-        //options.addArguments("dom.webdriver.enabled", "False");
+        options.addArguments("dom.webdriver.enabled", "False");
         return options;
     }
 

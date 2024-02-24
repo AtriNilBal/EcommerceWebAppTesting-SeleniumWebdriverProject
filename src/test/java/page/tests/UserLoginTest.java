@@ -10,12 +10,10 @@ import page.CustomExceptions.PageNotDisplayedException;
 import page.constants.ExpectedValues;
 
 public class UserLoginTest {
-    private static WebDriver chromeDriver;
+    private static WebDriver driver;
     private static String baseUrl;
 
     public static void main(String[] args) throws InterruptedException {
-
-        ExpectedValues expectedValues=new ExpectedValues();
 
         //Given user is on landing page
         baseUrl="https://www.amazon.in";
@@ -23,59 +21,60 @@ public class UserLoginTest {
         ChromeOptions options=new ChromeOptions();
         options.addArguments("--disable-blink-features=AutomationControlled");
         options.addArguments("useAutomationExtension", "False");
-        chromeDriver=new ChromeDriver(options);
-        chromeDriver.get(baseUrl);
-        chromeDriver.manage().window().maximize();
+        options.addArguments("dom.webdriver.enabled", "False");
+        driver =new ChromeDriver(options);
+        driver.get(baseUrl);
+        driver.manage().window().maximize();
 
-        String landingPageActualTitle=chromeDriver.getTitle();
+        String landingPageActualTitle= driver.getTitle();
         System.out.println(landingPageActualTitle);
         if(landingPageActualTitle.contentEquals(ExpectedValues.LANDING_PAGE_TITLE_NEGATIVE_VALIDATION)) {
             try {
                 throw new PageNotDisplayedException(ExpectedValues.PAGE_NOT_DISPLAYED_BOT_DETECTED_EXCEPTION_MESSAGE);
             } catch (PageNotDisplayedException e) {
                 System.out.println(e.getMessage()+". Exiting program...!");
-                chromeDriver.quit();
+                driver.quit();
                 System.exit(1);
             }
         }
         Thread.sleep(2000);
 
         //And user hovers over Accounts & links
-        WebElement signInAccountsAndLink=chromeDriver.findElement(By.xpath("//span[text()='Hello, sign in']"));
-        Actions actions=new Actions(chromeDriver);
+        WebElement signInAccountsAndLink= driver.findElement(By.xpath("//span[text()='Hello, sign in']"));
+        Actions actions=new Actions(driver);
         actions.moveToElement(signInAccountsAndLink).perform();
         Thread.sleep(2000);
 
         //Then Sign-In pane should be displayed for the user to navigate to Sign in page
-        WebElement signInLink=chromeDriver.findElement(By.xpath("//a/span[text()='Sign in']"));
+        WebElement signInLink= driver.findElement(By.xpath("//a/span[text()='Sign in']"));
         //When user clicks on Sign-link
         signInLink.click();
         //Then Sign In page should be displayed
-        String signInPageActualTitle=chromeDriver.getTitle();
+        String signInPageActualTitle= driver.getTitle();
         System.out.println(signInPageActualTitle);
         Thread.sleep(2000);
 
-        WebElement emailTextBox=chromeDriver.findElement(By.xpath("//div/input[@name='email']"));
-        emailTextBox.sendKeys("...enter username here...");
-        WebElement submitButton=chromeDriver.findElement(By.xpath("//span/input[@type='submit']"));
+        WebElement emailTextBox= driver.findElement(By.xpath("//div/input[@name='email']"));
+        emailTextBox.sendKeys(ExpectedValues.USER_LOGIN_USERNAME);
+        WebElement submitButton= driver.findElement(By.xpath("//span/input[@type='submit']"));
         submitButton.click();
-        WebElement passwordTextBox=chromeDriver.findElement(By.xpath("//div/input[@name='password']"));
-        passwordTextBox.sendKeys("...enter password here...");
-        WebElement signInButton=chromeDriver.findElement(By.xpath("//span/input[@id='signInSubmit']"));
+        WebElement passwordTextBox= driver.findElement(By.xpath("//div/input[@name='password']"));
+        passwordTextBox.sendKeys(ExpectedValues.USER_LOGIN_PASSWORD);
+        WebElement signInButton= driver.findElement(By.xpath("//span/input[@id='signInSubmit']"));
         signInButton.click();
-        String homePageActualTitle=chromeDriver.getTitle();
+        String homePageActualTitle= driver.getTitle();
         System.out.println(homePageActualTitle);
         if(homePageActualTitle.contentEquals(ExpectedValues.USER_LANDING_PAGE_TITLE_NEGATIVE_VALIDATION)) {
             try {
                 throw new PageNotDisplayedException(ExpectedValues.PAGE_NOT_DISPLAYED_BOT_DETECTED_EXCEPTION_MESSAGE);
             } catch(PageNotDisplayedException e) {
                 System.out.println(e.getMessage()+". Exiting program...!");
-                chromeDriver.quit(); System.exit(1);
+                driver.quit(); System.exit(1);
             }
         }
 
         Thread.sleep(2000);
 
-        chromeDriver.quit();
+        driver.quit();
     }
 }

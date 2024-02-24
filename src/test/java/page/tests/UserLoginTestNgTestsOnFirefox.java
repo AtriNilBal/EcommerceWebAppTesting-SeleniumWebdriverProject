@@ -8,6 +8,7 @@ import org.testng.annotations.Test;
 import page.classes.CommonMethods;
 import page.classes.LandingPageFactory;
 import page.classes.LoginPageFactory;
+import page.classes.UserLandingPageFactoryClass;
 import page.constants.ExpectedValues;
 
 public class UserLoginTestNgTestsOnFirefox {
@@ -15,6 +16,7 @@ public class UserLoginTestNgTestsOnFirefox {
     private WebDriver webdriver;
     private LandingPageFactory landingPageFactory;
     private LoginPageFactory loginPageFactory;
+    private UserLandingPageFactoryClass userLandingPageFactoryClass;
 
     @BeforeClass
     public void setup() {
@@ -24,6 +26,7 @@ public class UserLoginTestNgTestsOnFirefox {
         webdriver.manage().window().maximize();
         landingPageFactory=new LandingPageFactory(webdriver);
         loginPageFactory=new LoginPageFactory(webdriver);
+        userLandingPageFactoryClass=new UserLandingPageFactoryClass(webdriver);
     }
 
     @Test
@@ -33,6 +36,7 @@ public class UserLoginTestNgTestsOnFirefox {
         loginPageFactory.clickUserNameSubmitButton();
         loginPageFactory.userInputToPasswordTextBox(ExpectedValues.USER_LOGIN_PASSWORD);
         loginPageFactory.clickSignInButton();
+        userLandingPageFactoryClass.hoverOnUserSignInAccountsAndLinksAndClickSignOut();
     }
 
     @AfterClass
