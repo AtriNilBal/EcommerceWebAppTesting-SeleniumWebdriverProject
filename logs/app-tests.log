@@ -1,0 +1,3 @@
+11:12:04.906 INFO  tests.UserLoginLogoutJourneyTestNgTestsOnFirefox -========================USER JOURNEY:USER HAS LOGGED IN AND IS AT LANDING PAGE========================
+11:12:05.417 INFO  tests.UserLoginLogoutJourneyTestNgTestsOnFirefox -------------------------User has logged into own account
+11:12:05.417 INFO  tests.UserLoginLogoutJourneyTestNgTestsOnFirefox -========================USER JOURNEY:USER LOGOUT========================
