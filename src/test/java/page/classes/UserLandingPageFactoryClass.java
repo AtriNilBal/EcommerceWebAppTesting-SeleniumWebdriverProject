@@ -5,6 +5,8 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
 
 import java.time.Duration;
 
@@ -27,6 +29,8 @@ public class UserLandingPageFactoryClass {
     public void hoverOnUserSignInAccountsAndLinksAndClickSignOut() {
         Actions actions=new Actions(this.driver);
         actions.moveToElement(userSignInAccountsAndLinks).perform();
+        WebDriverWait webDriverWait=new WebDriverWait(this.driver, Duration.ofSeconds(5000));
+        webDriverWait.until(ExpectedConditions.elementToBeClickable(signOutLink));
         signOutLink.click();
     }
 }

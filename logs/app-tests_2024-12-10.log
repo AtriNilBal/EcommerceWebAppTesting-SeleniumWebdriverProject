@@ -1,0 +1,9 @@
+11:10:19.571 INFO  tests.UserLoginLogoutJourneyTestNgTestsOnEdge -========================USER JOURNEY:IN LANDING PAGE========================
+11:10:19.759 INFO  tests.UserLoginLogoutJourneyTestNgTestsOnEdge -------------------------User is in Landing page
+11:10:19.760 INFO  tests.UserLoginLogoutJourneyTestNgTestsOnEdge -========================USER JOURNEY:TO SIGNIN PAGE========================
+11:10:23.238 INFO  tests.UserLoginLogoutJourneyTestNgTestsOnEdge -------------------------User is in sign in page
+11:10:23.238 INFO  tests.UserLoginLogoutJourneyTestNgTestsOnEdge -========================USER JOURNEY:ENTER USERNAME PAGE========================
+11:10:29.840 INFO  tests.UserLoginLogoutJourneyTestNgTestsOnEdge -========================USER JOURNEY:ENTER PASSWORD PAGE========================
+11:10:30.155 INFO  tests.UserLoginLogoutJourneyTestNgTestsOnEdge -========================USER JOURNEY:USER HAS LOGGED IN AND IS AT LANDING PAGE========================
+11:10:36.124 INFO  tests.UserLoginLogoutJourneyTestNgTestsOnEdge -------------------------User has logged into own account
+11:10:36.124 INFO  tests.UserLoginLogoutJourneyTestNgTestsOnEdge -========================USER JOURNEY:USER LOGOUT========================
