@@ -1,41 +1,44 @@
-agent any 
+pipeline
 {
-	stages {
+    agent any
+    {
+    	stages {
 
-		stage ('build') {
-			steps {
-				echo "run command to build the project output of this step is a jar file / artifact"
-			}
+    		stage ('build') {
+    			steps {
+    				echo "run command to build the project output of this step is a jar file / artifact"
+    			}
 
-		}		
+    		}
 
-		stage ('deploy') {
-			steps {
-				echo "run batch or shell command/s to copy the artifact to DEV/QA server"
-			}
-		}
+    		stage ('deploy') {
+    			steps {
+    				echo "run batch or shell command/s to copy the artifact to DEV/QA server"
+    			}
+    		}
 
-		stage ('unit_test') {
-			steps {
-				echo "run mvn commands to execute unit tests; mvn compile"
-			}
-		}
+    		stage ('unit_test') {
+    			steps {
+    				echo "run mvn commands to execute unit tests; mvn compile"
+    			}
+    		}
 
-		stage ('automation_test') {
-			steps {
-				echo "run tests"
-				bat "mvn test -Dtest=UserLoginTestNgTestsOnFirefox"
-				//for unix and mac based servers
-				//sh "mvn test -Dtest=UserLoginTestNgTestsOnFirefox"
-			}
-		}
+    		stage ('automation_test') {
+    			steps {
+    				echo "run tests"
+    				bat "mvn test -Dtest=UserLoginTestNgTestsOnFirefox"
+    				//for unix and mac based servers
+    				//sh "mvn test -Dtest=UserLoginTestNgTestsOnFirefox"
+    			}
+    		}
 
-		stage ('release') {
-			steps {
-				echo "run commands to release artifact to production"
-			}
+    		stage ('release') {
+    			steps {
+    				echo "run commands to release artifact to production"
+    			}
 
-		}
-	}
+    		}
+    	}
 
+    }
 }
