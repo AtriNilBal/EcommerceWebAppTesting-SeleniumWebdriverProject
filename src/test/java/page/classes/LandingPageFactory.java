@@ -1,5 +1,6 @@
 package page.classes;
 
+import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Actions;
@@ -13,6 +14,7 @@ import java.util.List;
 
 public class LandingPageFactory {
     public static WebDriver driver=null;
+    private final WebDriverWait webDriverWait;
 
     @FindBy(xpath="//span[text()='Hello, sign in']")
     private WebElement signInAccountsAndLinks;
@@ -40,6 +42,7 @@ public class LandingPageFactory {
 
     public LandingPageFactory(WebDriver driver) {
         this.driver=driver;
+        this.webDriverWait = new WebDriverWait(this.driver, Duration.ofSeconds(60));
         driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10));
         PageFactory.initElements(driver, this);
     }
@@ -82,7 +85,7 @@ public class LandingPageFactory {
 
     public void hoverSignInAccountsAndClickSignInButton() {
         Actions actions=new Actions(this.driver);
-        actions.moveToElement(signInAccountsAndLinks).perform();
+        actions.moveToElement(this.webDriverWait.until(ExpectedConditions.presenceOfElementLocated(By.xpath("//span[text()='Hello, sign in']")))).perform();
         WebDriverWait webDriverWait=new WebDriverWait(this.driver, Duration.ofSeconds(5000));
         webDriverWait.until(ExpectedConditions.elementToBeClickable(signInButton));
         signInButton.click();

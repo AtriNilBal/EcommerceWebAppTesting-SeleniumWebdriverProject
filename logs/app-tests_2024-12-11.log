@@ -1,6 +1,0 @@
-11:11:46.519 INFO  tests.UserLoginLogoutJourneyTestNgTestsOnFirefox -========================USER JOURNEY:IN LANDING PAGE========================
-11:11:46.616 INFO  tests.UserLoginLogoutJourneyTestNgTestsOnFirefox -------------------------User is in Landing page
-11:11:46.617 INFO  tests.UserLoginLogoutJourneyTestNgTestsOnFirefox -========================USER JOURNEY:TO SIGNIN PAGE========================
-11:11:55.013 INFO  tests.UserLoginLogoutJourneyTestNgTestsOnFirefox -------------------------User is in sign in page
-11:11:55.014 INFO  tests.UserLoginLogoutJourneyTestNgTestsOnFirefox -========================USER JOURNEY:ENTER USERNAME PAGE========================
-11:11:57.519 INFO  tests.UserLoginLogoutJourneyTestNgTestsOnFirefox -========================USER JOURNEY:ENTER PASSWORD PAGE========================
