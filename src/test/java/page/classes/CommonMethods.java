@@ -19,6 +19,15 @@ public class CommonMethods {
         return options;
     }
 
+    public static ChromeOptions disableAutomatedTestsFlagInChromeHeadless() {
+        ChromeOptions options=new ChromeOptions();
+        options.addArguments("--disable-blink-features=AutomationControlled");
+        options.addArguments("useAutomationExtension", "False");
+        options.addArguments("dom.webdriver.enabled", "False");
+        options.addArguments("--headless=new");
+        return options;
+    }
+
     public static FirefoxOptions disableAutomatedTestsFlagInFirefox() {
         FirefoxOptions options=new FirefoxOptions();
         options.addArguments("--disable-blink-features=AutomationControlled");
@@ -27,11 +36,23 @@ public class CommonMethods {
         return options;
     }
 
+    public static FirefoxOptions firefoxHeadless() {
+        FirefoxOptions options=new FirefoxOptions();
+        options.addArguments("--headless");
+        return options;
+    }
+
     public static EdgeOptions disableAutomatedTestsFlagInEdge() {
         EdgeOptions options=new EdgeOptions();
         options.addArguments("--disable-blink-features=AutomationControlled");
         options.addArguments("useAutomationExtension", "False");
         options.addArguments("dom.webdriver.enabled", "False");
+        return options;
+    }
+
+    public static EdgeOptions edgeHeadless() {
+        EdgeOptions options=new EdgeOptions();
+        options.addArguments("--headless");
         return options;
     }
 

@@ -9,6 +9,7 @@ import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
 import java.time.Duration;
+import java.util.List;
 
 public class LandingPageFactory {
     public static WebDriver driver=null;
@@ -25,10 +26,58 @@ public class LandingPageFactory {
     @FindBy(xpath="//div//input[@type='submit']")
     private WebElement searchButton;
 
+    @FindBy(css="span[class='nav-line-2']")
+    private WebElement changeLanguageLink;
+
+    @FindBy(css="#icp-language-settings>div[class='a-row a-spacing-mini']")
+    private List<WebElement> languageOptions;
+
+    @FindBy(css="input[class='a-button-input']")
+    private WebElement saveLanguageOption;
+
+    @FindBy(css="#nav-logo-sprites")
+    private WebElement navigteToLandingPageByAmazonLogoNav;
+
     public LandingPageFactory(WebDriver driver) {
         this.driver=driver;
         driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10));
         PageFactory.initElements(driver, this);
+    }
+
+    public static WebDriver getDriver() {
+        return driver;
+    }
+
+    public WebElement getSignInAccountsAndLinks() {
+        return signInAccountsAndLinks;
+    }
+
+    public WebElement getSignInButton() {
+        return signInButton;
+    }
+
+    public List<WebElement> getLanguageOptions() {
+        return languageOptions;
+    }
+
+    public WebElement getSearchTextBox() {
+        return searchTextBox;
+    }
+
+    public WebElement getSearchButton() {
+        return searchButton;
+    }
+
+    public WebElement getChangeLanguageLink() {
+        return changeLanguageLink;
+    }
+
+    public WebElement getSaveLanguageOption() {
+        return saveLanguageOption;
+    }
+
+    public WebElement getNavigteToLandingPageByAmazonLogoNav() {
+        return navigteToLandingPageByAmazonLogoNav;
     }
 
     public void hoverSignInAccountsAndClickSignInButton() {
