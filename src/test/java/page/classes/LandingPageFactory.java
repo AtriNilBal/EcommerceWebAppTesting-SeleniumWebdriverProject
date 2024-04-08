@@ -60,7 +60,7 @@ public class LandingPageFactory {
     }
 
     public List<WebElement> getLanguageOptions() {
-        return languageOptions;
+        return this.webDriverWait.until(ExpectedConditions.presenceOfAllElementsLocatedBy(By.cssSelector("#icp-language-settings>div[class='a-row a-spacing-mini']")));
     }
 
     public WebElement getSearchTextBox() {
@@ -72,11 +72,11 @@ public class LandingPageFactory {
     }
 
     public WebElement getChangeLanguageLink() {
-        return changeLanguageLink;
+        return this.webDriverWait.until(ExpectedConditions.presenceOfElementLocated(By.cssSelector("span[class='nav-line-2']")));
     }
 
     public WebElement getSaveLanguageOption() {
-        return saveLanguageOption;
+        return this.webDriverWait.until(ExpectedConditions.presenceOfElementLocated(By.cssSelector("input[class='a-button-input']")));
     }
 
     public WebElement getNavigteToLandingPageByAmazonLogoNav() {
@@ -86,8 +86,7 @@ public class LandingPageFactory {
     public void hoverSignInAccountsAndClickSignInButton() {
         Actions actions=new Actions(this.driver);
         actions.moveToElement(this.webDriverWait.until(ExpectedConditions.presenceOfElementLocated(By.xpath("//span[text()='Hello, sign in']")))).perform();
-        WebDriverWait webDriverWait=new WebDriverWait(this.driver, Duration.ofSeconds(5000));
-        webDriverWait.until(ExpectedConditions.elementToBeClickable(signInButton));
+        this.webDriverWait.until(ExpectedConditions.elementToBeClickable(signInButton));
         signInButton.click();
     }
 

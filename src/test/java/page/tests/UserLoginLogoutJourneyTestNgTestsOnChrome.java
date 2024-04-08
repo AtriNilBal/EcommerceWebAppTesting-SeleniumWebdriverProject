@@ -2,9 +2,12 @@ package page.tests;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import org.openqa.selenium.StaleElementReferenceException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
@@ -15,6 +18,7 @@ import page.classes.LoginPageFactory;
 import page.classes.UserLandingPageFactoryClass;
 import page.constants.ExpectedValues;
 
+import java.time.Duration;
 import java.util.ArrayList;
 import java.util.List;
 import org.openqa.selenium.NoSuchElementException;
@@ -40,6 +44,11 @@ public class UserLoginLogoutJourneyTestNgTestsOnChrome {
         webDriver.get(ExpectedValues.BASE_URL);
         var navigateToLandingPage = landingPageFactory.getNavigteToLandingPageByAmazonLogoNav();
         navigateToLandingPage.click();
+        try {
+            Thread.sleep(1000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
     }
 
     @Test(priority=1)
@@ -50,36 +59,35 @@ public class UserLoginLogoutJourneyTestNgTestsOnChrome {
         List<WebElement> languageOptionsList = new ArrayList<>();
         languageOptionsList = landingPageFactory.getLanguageOptions();
 
-        for(int i=0; i<languageOptionsList.size(); i++) {
+        for(int i=1; i<languageOptionsList.size(); i++) {
             var currentLanguageOption = languageOptionsList.get(i);
             currentLanguageOption.click();
             LOGGER.info("clicked on {} language option ", i);
-
-            try {
-                Thread.sleep(1000);
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
-
             var saveSelectionLanguage = landingPageFactory.getSaveLanguageOption();
+
             try {
                 saveSelectionLanguage.click();
                 LOGGER.info("saved language option {}", i);
-            } catch(NoSuchElementException e) {
+            } catch(NoSuchElementException | StaleElementReferenceException e) {
                 LOGGER.warn("could not save language option {}", i);
                 landingPageFactory.getChangeLanguageLink().click();
                 languageOptionsList = landingPageFactory.getLanguageOptions();
                 LOGGER.info("Decrementing counter {} to re-run current iteration and reattempt saving current language option", i--);
                 continue;
             }
-
         }
+        try {
+            Thread.sleep(1000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        landingPageFactory.getChangeLanguageLink().click();
+        landingPageFactory.getLanguageOptions().get(0).click();
+        landingPageFactory.getSaveLanguageOption().click();
     }
 
     @Test(priority=0)
     public void loginLogoutTest() {
-        //validation for page title
-        //throw exception and exit code-block if error
         webDriver.get(ExpectedValues.BASE_URL);
         if(webDriver.getTitle().contentEquals(ExpectedValues.LANDING_PAGE_EXPECTED_TITLE)) {
             LOGGER.info("User is in Landing page");
